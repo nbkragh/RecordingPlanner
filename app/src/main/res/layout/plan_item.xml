@@ -66,12 +66,32 @@
             android:orientation="vertical"
             android:visibility="gone"
             android:animateLayoutChanges="true">
+
             <TextView
                 android:id="@+id/item_configs_frame_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:textAppearance="?attr/textAppearanceListItem" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/item_config_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardBackgroundColor="@color/primaryLightColor"
+                app:cardElevation="4dp"
+                app:cardPreventCornerOverlap="true">
+
+                <TextView
+                    android:id="@+id/item_config_6_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="Plan name"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/item_config_1"
@@ -82,11 +102,13 @@
                 app:cardBackgroundColor="@color/primaryLightColor"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="true">
+
                 <TextView
                     android:id="@+id/item_config_1_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
+                    android:text="Start"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -100,11 +122,13 @@
                 app:cardBackgroundColor="@color/primaryLightColor"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="true">
+
                 <TextView
                     android:id="@+id/item_config_2_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
+                    android:text="End"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -114,14 +138,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@android:color/background_light"
+                app:cardBackgroundColor="@color/primaryLightColor"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="true">
+
                 <TextView
                     android:id="@+id/item_config_3_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
+                    android:text="Record quality"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -131,15 +157,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@android:color/background_light"
+                app:cardBackgroundColor="@color/primaryLightColor"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="true">
-            <TextView
-                android:id="@+id/item_config_4_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:textAppearance="?attr/textAppearanceListItem" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ConstraintLayout99"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/config_auto_incr_qual_switch1"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/config_auto_incr_qual_switch1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Switch
+                        android:id="@+id/config_auto_incr_qual_switch1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Switch"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_conversion_absoluteHeight="0dp"
+                        tools:layout_conversion_absoluteWidth="0dp" />
+
+                    <TextView
+                        android:id="@+id/item_config_4_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="auto increase Quality"
+                        android:textAppearance="?attr/textAppearanceListItem"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_conversion_absoluteHeight="0dp"
+                        tools:layout_conversion_absoluteWidth="0dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/item_config_5"
@@ -147,46 +203,62 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@android:color/background_light"
+                app:cardBackgroundColor="@color/primaryLightColor"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="true">
-            <TextView
-                android:id="@+id/item_config_5_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:textAppearance="?attr/textAppearanceListItem" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ConstraintLayout100"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/item_config_5_title"
+                    app:layout_constraintStart_toStartOf="@+id/item_config_5_title">
+
+                    <TextView
+                        android:id="@+id/item_config_5_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notify deletion"
+                        android:textAppearance="?attr/textAppearanceListItem"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_conversion_absoluteHeight="0dp"
+                        tools:layout_conversion_absoluteWidth="0dp" />
+
+                    <Switch
+                        android:id="@+id/config_notify_deletion_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Switch"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_conversion_absoluteHeight="0dp"
+                        tools:layout_conversion_absoluteWidth="0dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_config_6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@android:color/background_light"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-                <TextView
-                    android:id="@+id/item_config_6_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-            </com.google.android.material.card.MaterialCardView>
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/item_config_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@android:color/background_light"
+                app:cardBackgroundColor="@color/primaryLightColor"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="true">
+
                 <TextView
                     android:id="@+id/item_config_7_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
+                    android:text="Briefing"
                     android:textAppearance="?attr/textAppearanceListItem" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

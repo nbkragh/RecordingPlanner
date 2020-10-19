@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+    <variable name="planitem" type="com.opgaver.recordingplanner.PlanItem"/>
+</data>
+<com.google.android.material.card.MaterialCardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +14,7 @@
     app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +22,7 @@
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="40dp"
@@ -27,6 +32,7 @@
 
             <TextView
                 android:id="@+id/plan_item_title"
+                android:text="@{planitem.title}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -37,24 +43,27 @@
 
             <TextView
                 android:id="@+id/plan_item_category"
+                android:text="@{planitem.category}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:textAppearance="?attr/textAppearanceListItem"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/plan_item_switch"
+                app:layout_constraintEnd_toStartOf="@+id/plan_item_onoff_switch"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
-                android:id="@+id/plan_item_switch"
+                android:id="@+id/plan_item_onoff_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:checked="@{planitem.active}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                 />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -272,3 +281,4 @@
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
+</layout>

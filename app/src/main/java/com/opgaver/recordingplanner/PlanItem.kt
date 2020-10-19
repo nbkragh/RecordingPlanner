@@ -1,10 +1,19 @@
 package com.opgaver.recordingplanner
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.widget.TextView
-import com.google.android.material.card.MaterialCardView
 
-class PlanItem(context: Context?) : MaterialCardView(context) {
-    //val inflator : LayoutInflater.from(context)
+import java.util.*
+
+class PlanItem(
+    var title : String,
+    var category: String,
+    var active: Boolean,
+    var startDate: Date?,
+    var endDate: Date?,
+    var recordQuality: Int?,
+    var autoIncreaseQuality: Boolean,
+    var notifyDeletion: Boolean,
+    var brief: String
+){
+    constructor(title : String, category: String): this(title, category, false, Date(), Date(), 1, true, true, "brief")
+
 }

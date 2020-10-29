@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.opgaver.recordingplanner.dummy.DummyContent
 
 /**
@@ -26,7 +28,9 @@ class PlanListFragment : Fragment(), LifecycleOwner {
 
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
+
         }
+
     }
 
     override fun onCreateView(
@@ -55,7 +59,7 @@ class PlanListFragment : Fragment(), LifecycleOwner {
 
         // TODO: Customize parameter initialization
         @JvmStatic
-        fun newInstance(columnCount: Int) =
+        fun newInstance(columnCount: Int, model: ViewModelPlanList) =
             PlanListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)

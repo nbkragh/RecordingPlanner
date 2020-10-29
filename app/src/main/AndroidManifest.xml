@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".PlansFrame"
+            android:name=".PlansFrameActivity"
             android:label="@string/activity_plans_frame">
         </activity>
         <activity android:name=".MainActivity">

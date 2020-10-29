@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         toPlans_Button = findViewById(R.id.toPlans_Button)
         toPlans_Button!!.setOnClickListener {
-            val intent = Intent(this, PlansFrame::class.java)
+            val intent = Intent(this, PlansFrameActivity::class.java)
             startActivity(intent)
         }
     }

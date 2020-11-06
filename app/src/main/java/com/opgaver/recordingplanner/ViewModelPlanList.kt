@@ -13,16 +13,17 @@ import com.opgaver.recordingplanner.dummy.DummyContent.DummyItem
  */
 class ViewModelPlanList : ViewModel() {
 
-    private val plans: MutableLiveData<List<PlanItem>> by lazy {
+    public val plans: MutableLiveData<List<PlanItem>> by lazy {
         MutableLiveData<List<PlanItem>>().also {
             it.setValue(loadPlans())
         }
     }
-
-    fun getPlans(): LiveData<List<PlanItem>> {
+    /*fun getPlans(): LiveData<List<PlanItem>> {
         return plans
     }
-
+    fun getPlan(index : Int): PlanItem{
+        return getPlans().value!!.get(index)
+    }*/
     private fun loadPlans(): List<PlanItem> {
         val length = 9;
         val list: MutableList<PlanItem> = emptyList<PlanItem>().toMutableList()

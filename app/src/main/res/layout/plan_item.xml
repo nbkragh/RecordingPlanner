@@ -1,289 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-    <variable name="planitem" type="com.opgaver.recordingplanner.PlanItem"/>
-</data>
-<com.google.android.material.card.MaterialCardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    app:cardBackgroundColor="@color/primaryDarkColor"
-    app:cardElevation="2dp"
-    app:cardPreventCornerOverlap="true">
 
+        <variable
+            name="viewmodel" type="com.opgaver.recordingplanner.ViewModelPlanList" />
+        <variable
+            name="index" type="int" />
+        <variable
+            name="item" type="com.opgaver.recordingplanner.PlanItem" />
+    </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@color/primaryDarkColor"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/expand_button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/plan_item_title"
-                android:text="@{planitem.title}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textAppearance="?attr/textAppearanceListItem"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/plan_item_category"
-                android:text="@{planitem.category}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:textAppearance="?attr/textAppearanceListItem"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/plan_item_onoff_switch"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Switch
-                android:id="@+id/plan_item_onoff_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:checked="@={planitem.active}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                 />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/item_configs_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <TextView
-
-                android:text="@{planitem.configsFrameTitle}"
-                android:id="@+id/item_configs_frame_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:textAppearance="?attr/textAppearanceListItem" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_plan_name_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <EditText
-                    android:id="@+id/item_plan_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@={planitem.title}"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_config_start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <TextView
-                    android:id="@+id/item_config_start_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="Start"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_config_end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <TextView
-                    android:id="@+id/item_config_end_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="End"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_config_recQuality"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <TextView
-                    android:id="@+id/item_config_recQuality_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="Record quality"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_config_autoIncrQuality"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/ConstraintLayout99"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/config_auto_incr_qual_switch1"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/config_auto_incr_qual_switch1"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <Switch
-                        android:id="@+id/config_autoIncrQuality_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Switch"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="0dp"
-                        tools:layout_conversion_absoluteWidth="0dp" />
-
-                    <TextView
-                        android:id="@+id/item_config_autoIncrQuality_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Auto increase Quality"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="0dp"
-                        tools:layout_conversion_absoluteWidth="0dp" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_config_notifyDelete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/ConstraintLayout100"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toStartOf="@+id/item_config_5_title"
-                    app:layout_constraintStart_toStartOf="@+id/item_config_5_title">
-
-                    <TextView
-                        android:id="@+id/item_config_notifyDelete_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Notify deletion"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="0dp"
-                        tools:layout_conversion_absoluteWidth="0dp" />
-
-                    <Switch
-                        android:id="@+id/config_notifyDelete_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Switch"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="0dp"
-                        tools:layout_conversion_absoluteWidth="0dp" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_config_briefing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardElevation="4dp"
-                app:cardPreventCornerOverlap="true">
-
-                <TextView
-                    android:id="@+id/item_config_briefing_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="Briefing"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/expand_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/baseline_expand_more_white_18dp" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="40dp"
+                app:layout_constraintBottom_toTopOf="@+id/expand_button"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintTop_toTopOf="parent">
 
-</com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/plan_item_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@{item.title}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/plan_item_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:text="@{item.category}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/plan_item_onoff_switch"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Switch
+                    android:id="@+id/plan_item_onoff_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:checked="@={item.active}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/item_configs_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+
+                    android:id="@+id/item_configs_frame_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@{item.configsFrameTitle}"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_plan_name_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/primaryLightColor"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <EditText
+                        android:id="@+id/item_plan_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@={item.title}"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_config_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/primaryLightColor"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <TextView
+                        android:id="@+id/item_config_start_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="Start"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_config_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/primaryLightColor"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <TextView
+                        android:id="@+id/item_config_end_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="End"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_config_recQuality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/primaryLightColor"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <TextView
+                        android:id="@+id/item_config_recQuality_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="Record quality"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_config_autoIncrQuality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/primaryLightColor"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ConstraintLayout99"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/config_auto_incr_qual_switch1"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/config_auto_incr_qual_switch1"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <Switch
+                            android:id="@+id/config_autoIncrQuality_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Switch"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="0dp"
+                            tools:layout_conversion_absoluteWidth="0dp" />
+
+                        <TextView
+                            android:id="@+id/item_config_autoIncrQuality_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Auto increase Quality"
+                            android:textAppearance="?attr/textAppearanceListItem"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="0dp"
+                            tools:layout_conversion_absoluteWidth="0dp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_config_notifyDelete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/primaryLightColor"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ConstraintLayout100"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toStartOf="@+id/item_config_5_title"
+                        app:layout_constraintStart_toStartOf="@+id/item_config_5_title">
+
+                        <TextView
+                            android:id="@+id/item_config_notifyDelete_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Notify deletion"
+                            android:textAppearance="?attr/textAppearanceListItem"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="0dp"
+                            tools:layout_conversion_absoluteWidth="0dp" />
+
+                        <Switch
+                            android:id="@+id/config_notifyDelete_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Switch"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="0dp"
+                            tools:layout_conversion_absoluteWidth="0dp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_config_briefing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/primaryLightColor"
+                    app:cardElevation="4dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <TextView
+                        android:id="@+id/item_config_briefing_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="Briefing"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/expand_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/baseline_expand_more_white_18dp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

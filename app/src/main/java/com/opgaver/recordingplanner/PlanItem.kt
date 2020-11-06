@@ -57,6 +57,7 @@ class PlanItem(
     fun setActive(value: Boolean) {
         if (active != value) {
             active = value
+            notifyPropertyChanged(BR.active)
         }
     }
 }

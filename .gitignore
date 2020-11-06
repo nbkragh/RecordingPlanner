@@ -49,3 +49,5 @@ output.json
 
 /app/src/test/java/com/opgaver/recordingplanner/
 /app/src/test/java/com/opgaver/recordingplanner/
+/app/src/androidTest/java/com/opgaver/recordingplanner/
+/app/src/test/java/com/opgaver/recordingplanner/

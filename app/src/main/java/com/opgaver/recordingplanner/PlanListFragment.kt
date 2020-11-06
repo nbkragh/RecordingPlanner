@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -18,19 +19,17 @@ import com.opgaver.recordingplanner.dummy.DummyContent
 /**
  * A fragment representing a list of Items.
  */
-class PlanListFragment : Fragment(), LifecycleOwner {
+class PlanListFragment : Fragment() {
 
     private var columnCount = 1
-    val model: ViewModelPlanList by viewModels()
+    val model: ViewModelPlanList by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
-
         }
-
     }
 
     override fun onCreateView(
@@ -45,7 +44,7 @@ class PlanListFragment : Fragment(), LifecycleOwner {
                     columnCount <= 1 -> LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = PlanRecyclerViewAdapter(model, this, this@PlanListFragment)
+                adapter = PlanRecyclerViewAdapter(model, this, this@PlanListFragment.viewLifecycleOwner)
 
             }
         }

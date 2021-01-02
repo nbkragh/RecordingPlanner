@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "815443078948",
+    "project_id": "sound-recorder-project",
+    "storage_bucket": "sound-recorder-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815443078948:android:6ba0ea053ea45dacd80db1",
+        "android_client_info": {
+          "package_name": "com.opgaver.recordingplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815443078948-elt6idkfe3eih3d85cn8f9f5d38uqgvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiB3HKCtHW6xRKuDH7naQIpUB4Sax2iT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815443078948-elt6idkfe3eih3d85cn8f9f5d38uqgvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

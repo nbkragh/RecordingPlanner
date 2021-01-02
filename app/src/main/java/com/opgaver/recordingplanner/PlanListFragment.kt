@@ -44,7 +44,10 @@ class PlanListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = PlanRecyclerViewAdapter(model, this, this@PlanListFragment.viewLifecycleOwner)
+                adapter = PlanRecyclerViewAdapter(model,
+                    this,
+                    this@PlanListFragment.viewLifecycleOwner,
+                    context as PlanRecyclerViewAdapter.dateClickHandler)
 
             }
         }

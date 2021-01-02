@@ -1,5 +1,6 @@
 package com.opgaver.recordingplanner
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ import com.opgaver.recordingplanner.dummy.DummyContent.DummyItem
  */
 class ViewModelPlanList : ViewModel() {
 
-    public val plans: MutableLiveData<List<PlanItem>> by lazy {
+    val plans: MutableLiveData<List<PlanItem>> by lazy {
         MutableLiveData<List<PlanItem>>().also {
             it.setValue(loadPlans())
         }
@@ -25,7 +26,7 @@ class ViewModelPlanList : ViewModel() {
         return getPlans().value!!.get(index)
     }*/
     private fun loadPlans(): List<PlanItem> {
-        val length = 9;
+        val length = 20;
         val list: MutableList<PlanItem> = emptyList<PlanItem>().toMutableList()
 
         ((DummyContent.ITEMS).subList(0, length)).forEach {
@@ -37,5 +38,8 @@ class ViewModelPlanList : ViewModel() {
             )
         }
         return list
+    }
+    fun test(view: View){
+        System.out.println("test$view")
     }
 }

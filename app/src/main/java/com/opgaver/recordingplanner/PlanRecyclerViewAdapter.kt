@@ -12,10 +12,6 @@ import com.opgaver.recordingplanner.databinding.PlanItemBinding
 import com.opgaver.recordingplanner.dummy.DummyContent.DummyItem
 import kotlinx.android.synthetic.main.plan_item.view.*
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class PlanRecyclerViewAdapter(
     private val plansData: ViewModelPlanList,
     private val container: ViewGroup?,
@@ -52,6 +48,7 @@ class PlanRecyclerViewAdapter(
         return planItemViewHolder(binding, plansData, lifecycleOwner).also {
             binding.root.item_config_start.setOnClickListener {
                 contextAsDataClickHandler.onClick(it, binding.index)
+
                 //binding.executePendingBindings()
             }
         }
@@ -68,8 +65,6 @@ class PlanRecyclerViewAdapter(
         holder.binding.expandButton.setOnClickListener {
 
             expandedPosition = if (isExpanded) -1 else position
-            //expandedPosition = if (expandedPosition != position) position else -1
-
 
             (recyclerView!!.layoutManager as LinearLayoutManager)!!.scrollToPositionWithOffset(
                 position,
@@ -77,7 +72,7 @@ class PlanRecyclerViewAdapter(
             )
             notifyItemChanged(position)
         }
-
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount(): Int = plansData.plans.value!!.size

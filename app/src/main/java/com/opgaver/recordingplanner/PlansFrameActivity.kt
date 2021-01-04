@@ -24,11 +24,9 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner, PlanRecyclerView
                 arguments = intent.extras
             }
             fragmentManager.beginTransaction()
-                .add(R.id.plans_frame_content, planListFrag)
+                .add(R.id.plans_frame_content, planListFrag, "plans_list_fragment")
                 .commit()
         }
-
-
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -48,13 +46,14 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner, PlanRecyclerView
         navigateToCalendar(index)
     }
 
-    fun navigateToCalendar(index : Int) {
+    fun navigateToCalendar(index: Int) {
         val calendarFrag = CalendarViewFragment(index, model, this).apply {
             arguments = intent.extras
         }
+
         fragmentManager.beginTransaction()
             .replace(R.id.plans_frame_content, calendarFrag)
-            .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .addToBackStack(null)
             .commit()
     }

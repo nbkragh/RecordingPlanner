@@ -1,15 +1,18 @@
 package com.opgaver.recordingplanner
 
 import android.os.Bundle
-import androidx.transition.TransitionInflater
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
+
 
 /**
  * A fragment representing a list of Items.
@@ -18,7 +21,7 @@ class PlanListFragment : Fragment() {
 
     private var columnCount = 1
     val model: ViewModelPlanList by activityViewModels()
-
+    var recyclerView: RecyclerView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,21 +33,26 @@ class PlanListFragment : Fragment() {
         exitTransition = inflater.inflateTransition(R.transition.fade)
 
         reenterTransition = inflater.inflateTransition(R.transition.fade)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_plan_recyclerview, container, false)
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                if (adapter == null) {
+        if (recyclerView == null) {
+            val view = inflater.inflate(R.layout.fragment_plan_recyclerview, container, false)
+            // Set the adapter
+            if (view is RecyclerView) {
+                with(view) {
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(
+                            context,
+                            RecyclerView.VERTICAL,
+                            false
+                        )
+                        else -> GridLayoutManager(context, columnCount)
+                    }
                     adapter = PlanRecyclerViewAdapter(
                         model,
                         this,
@@ -52,9 +60,10 @@ class PlanListFragment : Fragment() {
                         context as PlanRecyclerViewAdapter.dateClickHandler
                     )
                 }
+                this@PlanListFragment.recyclerView = view
             }
         }
-        return view
+        return recyclerView
     }
 
     companion object {

@@ -48,7 +48,7 @@ class CalendarViewFragment(
         // Inflate the layout for this fragment
         System.out.println("CalendarViewFragment.kt.index: $index")
         var view: View = inflater.inflate(R.layout.fragment_calendar_view, container, false)
-        view.calendar_annuller_button.setOnClickListener {finish() }
+        view.calendar_annuller_button.setOnClickListener {getFragmentManager()?.popBackStack() }
         return view
     }
 

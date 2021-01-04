@@ -1,17 +1,11 @@
 package com.opgaver.recordingplanner
 
 import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import com.opgaver.recordingplanner.dummy.DummyContent
-import com.opgaver.recordingplanner.dummy.DummyContent.DummyItem
 
-/**
- * that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
+
 class ViewModelPlanList : ViewModel() {
 
     val plans: MutableLiveData<List<PlanItem>> by lazy {

@@ -1,6 +1,7 @@
 package com.opgaver.recordingplanner
 
 import android.os.Bundle
+import androidx.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,13 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import com.opgaver.recordingplanner.dummy.DummyContent
 
 /**
  * A fragment representing a list of Items.
@@ -30,6 +25,11 @@ class PlanListFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
+        val inflater = TransitionInflater.from(requireContext())
+
+        exitTransition = inflater.inflateTransition(R.transition.fade)
+
+        reenterTransition = inflater.inflateTransition(R.transition.fade)
     }
 
     override fun onCreateView(
@@ -44,11 +44,14 @@ class PlanListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = PlanRecyclerViewAdapter(model,
-                    this,
-                    this@PlanListFragment.viewLifecycleOwner,
-                    context as PlanRecyclerViewAdapter.dateClickHandler)
-
+                if (adapter == null) {
+                    adapter = PlanRecyclerViewAdapter(
+                        model,
+                        this,
+                        this@PlanListFragment.viewLifecycleOwner,
+                        context as PlanRecyclerViewAdapter.dateClickHandler
+                    )
+                }
             }
         }
         return view

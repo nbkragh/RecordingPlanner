@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:clipToPadding="false"
+    android:paddingBottom="82dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".PlanListFragment"
-    tools:listitem="@layout/plan_item"
-    />
+    tools:listitem="@layout/plan_item" />

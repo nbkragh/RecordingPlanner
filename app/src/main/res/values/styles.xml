@@ -7,10 +7,17 @@
         <item name="colorAccent">@color/secondaryColor</item>
         <item name="android:windowBackground">#444444</item>
         <item name="colorButtonNormal">@color/primaryColor</item>
+        <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@transition/slide_right</item>
+        <item name="android:windowExitTransition">@transition/fade</item>
+
     </style>
 
-<style name="AppTheme.NoActionBar" >
-       <item name="windowActionBar">false</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 

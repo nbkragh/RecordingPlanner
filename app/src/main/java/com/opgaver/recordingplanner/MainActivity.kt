@@ -1,5 +1,6 @@
 package com.opgaver.recordingplanner
 
+import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +24,10 @@ class MainActivity : AppCompatActivity() {
         toPlans_Button = findViewById(R.id.toPlans_Button)
         toPlans_Button!!.setOnClickListener {
             val intent = Intent(this, PlansFrameActivity::class.java)
-            startActivity(intent)
+            //startActivity(intent)
+            startActivity(intent,
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+
         }
 
         toRecordings_Button = findViewById(R.id.toRecordings_button)

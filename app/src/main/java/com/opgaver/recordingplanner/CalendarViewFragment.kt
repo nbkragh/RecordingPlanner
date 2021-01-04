@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import androidx.transition.TransitionInflater
 import kotlinx.android.synthetic.main.fragment_calendar_view.view.*
 import kotlinx.android.synthetic.main.fragment_plan_recyclerview.view.*
 
@@ -34,6 +35,10 @@ class CalendarViewFragment(
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        val inflater = TransitionInflater.from(requireContext())
+
+        enterTransition = inflater.inflateTransition(R.transition.slide_up)
+        exitTransition = inflater.inflateTransition(R.transition.slide_down)
     }
 
     override fun onCreateView(

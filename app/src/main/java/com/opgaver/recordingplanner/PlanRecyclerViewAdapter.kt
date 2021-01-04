@@ -50,7 +50,8 @@ class PlanRecyclerViewAdapter(
         )
         binding.lifecycleOwner = lifecycleOwner
         return planItemViewHolder(binding, plansData, lifecycleOwner).also {
-            binding.root.item_config_start.setOnClickListener {  contextAsDataClickHandler.onClick( it, binding.index )
+            binding.root.item_config_start.setOnClickListener {
+                contextAsDataClickHandler.onClick(it, binding.index)
                 //binding.executePendingBindings()
             }
         }
@@ -67,6 +68,8 @@ class PlanRecyclerViewAdapter(
         holder.binding.expandButton.setOnClickListener {
 
             expandedPosition = if (isExpanded) -1 else position
+            //expandedPosition = if (expandedPosition != position) position else -1
+
 
             (recyclerView!!.layoutManager as LinearLayoutManager)!!.scrollToPositionWithOffset(
                 position,
@@ -83,7 +86,7 @@ class PlanRecyclerViewAdapter(
         val binding: PlanItemBinding,
         val viewModel: ViewModelPlanList,
         val lifecycleOwner: LifecycleOwner
-    ) : RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: PlanItem, position: Int) {
             binding.item = item
@@ -100,6 +103,6 @@ class PlanRecyclerViewAdapter(
     }
 
     interface dateClickHandler {
-        fun onClick(viewholder: View, index : Int)
+        fun onClick(viewholder: View, index: Int)
     }
 }

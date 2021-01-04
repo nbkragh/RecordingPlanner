@@ -21,12 +21,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/primaryDarkColor"
         tools:context=".CalendarViewFragment">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="@color/primaryDarkColor"
+            android:gravity="center"
             android:orientation="vertical">
 
             <CalendarView

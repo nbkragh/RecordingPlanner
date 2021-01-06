@@ -56,8 +56,7 @@ class PlanListFragment : Fragment() {
                     adapter = PlanRecyclerViewAdapter(
                         model,
                         this,
-                        this@PlanListFragment.viewLifecycleOwner,
-                        context as PlanRecyclerViewAdapter.dateClickHandler
+                        this@PlanListFragment.viewLifecycleOwner
                     )
                 }
                 this@PlanListFragment.recyclerView = view

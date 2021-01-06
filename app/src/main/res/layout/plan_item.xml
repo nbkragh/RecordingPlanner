@@ -6,11 +6,187 @@
     <data>
 
         <variable
-            name="viewmodel" type="com.opgaver.recordingplanner.ViewModelPlanList" />
+            name="viewmodel"
+            type="com.opgaver.recordingplanner.ViewModelPlanList" />
+
         <variable
-            name="index" type="int" />
+            name="index"
+            type="int" />
+
         <variable
-            name="item" type="com.opgaver.recordingplanner.PlanItem" />
+            name="item"
+            type="com.opgaver.recordingplanner.PlanItem" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="5pt"
+        app:cardBackgroundColor="@color/primaryDarkColor"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:id="@+id/above_expand_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/plan_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:text="@{item.title}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/plan_item_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="48dp"
+                android:text="@{item.category}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/plan_item_onoff_switch"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/plan_item_title"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/plan_item_onoff_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:height="30dp"
+                android:checked="@={item.active}"
+                android:showText="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                tools:text="ON/OFF  " />
+
+            <LinearLayout
+                android:id="@+id/item_configs_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/plan_item_onoff_switch"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <TextView
+
+                    android:id="@+id/item_configs_frame_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@{item.configsFrameTitle}"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+
+                <EditText
+                    android:id="@+id/item_plan_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@={item.title}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    tools:text="title" />
+
+
+                <TextView
+                    android:id="@+id/item_config_start_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@={item.Companion.dateToString(item.startDate)}"
+                    android:focusable="false"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+
+
+                <TextView
+                    android:id="@+id/item_config_end_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@={item.Companion.dateToString(item.endDate)}"
+                    android:focusable="false"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+
+
+                <Switch
+                    android:id="@+id/config_autoIncrQuality_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Auto increase Quality           "
+                    android:checked="@={item.autoIncreaseQuality}"
+                    tools:layout_conversion_absoluteHeight="0dp"
+                    tools:layout_conversion_absoluteWidth="0dp" />
+
+
+                <Switch
+                    android:id="@+id/config_notifyDelete_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notify deletion        "
+                    android:checked="@={item.notifyDeletion}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="0dp"
+                    tools:layout_conversion_absoluteWidth="0dp" />
+
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/expand_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_below="@id/item_configs_frame"
+                android:layout_gravity="bottom"
+                app:srcCompat="@drawable/baseline_expand_more_white_18dp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout><!--
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.opgaver.recordingplanner.ViewModelPlanList" />
+
+        <variable
+            name="index"
+            type="int" />
+
+        <variable
+            name="item"
+            type="com.opgaver.recordingplanner.PlanItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -32,8 +208,8 @@
                 android:id="@+id/constraintLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:minHeight="40dp"
                 android:animateLayoutChanges="true"
+                android:minHeight="40dp"
                 app:layout_constraintBottom_toTopOf="@+id/expand_button"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintTop_toTopOf="parent">
@@ -93,7 +269,6 @@
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardUseCompatPadding="true"
                     android:id="@+id/item_plan_name_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +276,8 @@
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <EditText
                         android:id="@+id/item_plan_name"
@@ -113,16 +289,16 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardUseCompatPadding="true"
                     android:id="@+id/item_config_start"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:onClick="@{(v) -> viewmodel.test(v)}"
                     app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardElevation="4dp"
                     app:cardPreventCornerOverlap="true"
-                    android:onClick="@{(v) -> viewmodel.test(v)}">
+                    app:cardUseCompatPadding="true">
 
                     <TextView
                         android:id="@+id/item_config_start_title"
@@ -135,7 +311,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardUseCompatPadding="true"
                     android:id="@+id/item_config_end"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,7 +318,8 @@
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <TextView
                         android:id="@+id/item_config_end_title"
@@ -156,7 +332,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardUseCompatPadding="true"
                     android:id="@+id/item_config_recQuality"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,7 +339,8 @@
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <TextView
                         android:id="@+id/item_config_recQuality_title"
@@ -215,7 +391,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardUseCompatPadding="true"
                     android:id="@+id/item_config_notifyDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -223,7 +398,8 @@
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/ConstraintLayout100"
@@ -263,7 +439,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardUseCompatPadding="true"
                     android:id="@+id/item_config_briefing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -271,7 +446,8 @@
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <TextView
                         android:id="@+id/item_config_briefing_title"
@@ -292,4 +468,4 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-</layout>
+</layout>-->

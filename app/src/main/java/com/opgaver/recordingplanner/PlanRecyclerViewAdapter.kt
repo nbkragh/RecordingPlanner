@@ -1,28 +1,33 @@
 package com.opgaver.recordingplanner
 
+import android.app.DatePickerDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.opgaver.recordingplanner.databinding.PlanItemBinding
-import com.opgaver.recordingplanner.dummy.DummyContent.DummyItem
 import kotlinx.android.synthetic.main.plan_item.view.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PlanRecyclerViewAdapter(
     private val plansData: ViewModelPlanList,
-    private val container: ViewGroup?,
-    private val lifecycleOwner: LifecycleOwner,
-    private val contextAsDataClickHandler: dateClickHandler
-) : RecyclerView.Adapter<PlanRecyclerViewAdapter.planItemViewHolder>() {
+    private val container: ViewGroup,
+    private val lifecycleOwner: LifecycleOwner
+) : RecyclerView.Adapter<PlanRecyclerViewAdapter.planItemViewHolder>(),
+    DatePickerDialog.OnDateSetListener  {
 
     private var expandedPosition = -1
-
-    var recyclerView: RecyclerView? = null
-
+    val calendar = Calendar.getInstance()
+    lateinit var recyclerView: RecyclerView
+    lateinit var datePickingReciever: TextView
     init {
         plansData.plans.observe(lifecycleOwner, Observer<List<PlanItem>> {
             notifyDataSetChanged()
@@ -36,21 +41,26 @@ class PlanRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): planItemViewHolder {
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(R.layout.plan_item, parent, false)
+
         val binding: PlanItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.plan_item,
             container,
             false
         )
-        binding.lifecycleOwner = lifecycleOwner
         return planItemViewHolder(binding, plansData, lifecycleOwner).also {
-            binding.root.item_config_start.setOnClickListener {
-                contextAsDataClickHandler.onClick(it, binding.index)
+            binding.root.item_config_start_title.setOnClickListener {
+                datePickingReciever = binding.itemConfigStartTitle
+                onDateClick(it, binding.index)
 
-                //binding.executePendingBindings()
             }
+            binding.root.item_config_end_title.setOnClickListener {
+                datePickingReciever = binding.itemConfigEndTitle
+                onDateClick(it, binding.index)
+
+            }
+
+
         }
     }
 
@@ -87,17 +97,33 @@ class PlanRecyclerViewAdapter(
             binding.item = item
             binding.index = position
             binding.viewmodel = viewModel
-            //binding.executePendingBindings()
-            binding.setLifecycleOwner(lifecycleOwner)
-
+            //binding.setLifecycleOwner(lifecycleOwner)
         }
 
         override fun toString(): String {
-            return super.toString() + " '" + binding.planItemTitle + "'"
+            return super.toString() + " '" + binding.planItemCategory+ "'"
         }
     }
 
-    interface dateClickHandler {
-        fun onClick(viewholder: View, index: Int)
+
+
+    fun onDateClick(viewholder: View, index: Int) {
+        DatePickerDialog(
+            container.context, this,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+    override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
+
+        var monthString : String = if((month+1).toString().length < 2) "0"+(month+1) else ""+(month+1)
+        var dayString : String = if(day.toString().length < 2) "0"+day else ""+day
+
+        datePickingReciever.setText("$year"+monthString+dayString)
+
+
+
     }
 }

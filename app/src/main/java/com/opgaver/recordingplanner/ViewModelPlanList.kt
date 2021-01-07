@@ -1,28 +1,20 @@
 package com.opgaver.recordingplanner
 
-import android.view.View
-import android.widget.TextView
-import androidx.databinding.InverseMethod
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.opgaver.recordingplanner.dummy.DummyContent
 
 
+
 class ViewModelPlanList : ViewModel() {
 
-    val plans: MutableLiveData<List<PlanItem>> by lazy {
-        MutableLiveData<List<PlanItem>>().also {
+    val plans: MutableLiveData<MutableList<PlanItem>> by lazy {
+        MutableLiveData<MutableList<PlanItem>>().also {
             it.setValue(loadPlans())
         }
     }
 
-    /*fun getPlans(): LiveData<List<PlanItem>> {
-        return plans
-    }
-    fun getPlan(index : Int): PlanItem{
-        return getPlans().value!!.get(index)
-    }*/
-    private fun loadPlans(): List<PlanItem> {
+    private fun loadPlans(): MutableList<PlanItem> {
         val length = 10
         val list: MutableList<PlanItem> = emptyList<PlanItem>().toMutableList()
 
@@ -37,5 +29,10 @@ class ViewModelPlanList : ViewModel() {
         return list
     }
 
+    fun addPlan(){
+        println(plans)
+        plans.value?.add(PlanItem("NEW","Recording Plan"))
+        plans.value = plans.value
+    }
 
 }

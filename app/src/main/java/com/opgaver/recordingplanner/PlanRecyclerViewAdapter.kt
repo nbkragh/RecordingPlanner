@@ -1,6 +1,7 @@
 package com.opgaver.recordingplanner
 
 import android.app.DatePickerDialog
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,26 +11,26 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.opgaver.recordingplanner.databinding.PlanItemBinding
 import kotlinx.android.synthetic.main.plan_item.view.*
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
+
 
 class PlanRecyclerViewAdapter(
     private val plansData: ViewModelPlanList,
     private val container: ViewGroup,
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<PlanRecyclerViewAdapter.planItemViewHolder>(),
-    DatePickerDialog.OnDateSetListener  {
+    DatePickerDialog.OnDateSetListener {
 
     private var expandedPosition = -1
     val calendar = Calendar.getInstance()
     lateinit var recyclerView: RecyclerView
     lateinit var datePickingReciever: TextView
     init {
-        plansData.plans.observe(lifecycleOwner, Observer<List<PlanItem>> {
+        plansData.plans.observe(lifecycleOwner, Observer<MutableList<PlanItem>> {
             notifyDataSetChanged()
         })
 
@@ -106,7 +107,6 @@ class PlanRecyclerViewAdapter(
     }
 
 
-
     fun onDateClick(viewholder: View, index: Int) {
         DatePickerDialog(
             container.context, this,
@@ -118,12 +118,26 @@ class PlanRecyclerViewAdapter(
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
 
-        var monthString : String = if((month+1).toString().length < 2) "0"+(month+1) else ""+(month+1)
-        var dayString : String = if(day.toString().length < 2) "0"+day else ""+day
+        var monthString: String =
+            if ((month + 1).toString().length < 2) "0" + (month + 1) else "" + (month + 1)
+        var dayString: String = if (day.toString().length < 2) "0" + day else "" + day
 
-        datePickingReciever.setText("$year"+monthString+dayString)
-
-
+        datePickingReciever.setText("$year" + monthString + dayString)
 
     }
+
+    fun smoothSnapToPosition(position: Int) {
+        object : LinearSmoothScroller(recyclerView.context) {
+            override fun getVerticalSnapPreference(): Int = SNAP_TO_START
+            override fun getHorizontalSnapPreference(): Int = SNAP_TO_START
+            override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                return 120f / displayMetrics.densityDpi
+            }
+        }.apply {
+            targetPosition = position }.let {
+                recyclerView.layoutManager?.startSmoothScroll(it)
+            }
+
+    }
+
 }

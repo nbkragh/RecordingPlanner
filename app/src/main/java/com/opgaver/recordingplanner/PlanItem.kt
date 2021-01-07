@@ -1,9 +1,7 @@
 package com.opgaver.recordingplanner
 
 
-import android.view.View
 import androidx.databinding.*
-import java.util.*
 
 class PlanItem(
     private var title: String = "",
@@ -104,8 +102,6 @@ class PlanItem(
         @InverseMethod("stringToDate")
         @JvmStatic fun dateToString(value: Long): String {
             var asString = value.toString()
-
-
             return ""+asString.subSequence(0,4)+"/"+asString.subSequence(4,6)+"/"+asString.substring(asString.length-2)
         }
 

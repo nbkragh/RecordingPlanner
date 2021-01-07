@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -28,8 +29,14 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner{
         }
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+/*            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()*/
+            model.addPlan()
+            (( fragmentManager.findFragmentByTag("plans_list_fragment") as PlanListFragment)
+                .recyclerView?.adapter as PlanRecyclerViewAdapter).let {
+                    it.smoothSnapToPosition( it.itemCount -1)
+                }
+
         }
     }
 

@@ -8,13 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.opgaver.recordingplanner.dummy.DummyContent
 import com.opgaver.recordingplanner.persistence.PlannerDatabase
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     // Null until onCreateView.
@@ -35,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         toPlans_Button = findViewById(R.id.toPlans_Button)
         toPlans_Button!!.setOnClickListener {
             val intent = Intent(this, PlansFrameActivity::class.java)
-            //startActivity(intent)
             startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
 
@@ -56,10 +52,10 @@ class MainActivity : AppCompatActivity() {
                 val nowAsLong : Long = PlanItem.formatDateIntsToDateLong(now.year,now.monthValue,now.dayOfMonth)
 
                 val itemList : MutableList<PlanItem> = emptyList<PlanItem>().toMutableList()
-                itemList.add(PlanItem("NEW",nowAsLong,nowAsLong+1))
-                itemList.add(PlanItem("NEWER",nowAsLong+1,nowAsLong+2))
-                itemList.add(PlanItem("NEWEST",nowAsLong+2,nowAsLong+3))
-                database.planitemDAO().insert( itemList)
+                itemList.add(PlanItem("FIRST",nowAsLong,nowAsLong+1))
+                itemList.add(PlanItem("SECOND",nowAsLong+1,nowAsLong+2))
+                itemList.add(PlanItem("THIRD",nowAsLong+2,nowAsLong+3))
+                database.planitemDAO().insertAll( itemList)
             }
         }
 

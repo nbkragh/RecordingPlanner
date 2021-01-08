@@ -7,6 +7,7 @@ import androidx.databinding.InverseMethod
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.LocalDate
 
 @Entity(tableName = "planitems")
 data class PlanItem(
@@ -18,7 +19,8 @@ data class PlanItem(
     @ColumnInfo(name = "auto_incr_quality") private var autoIncreaseQuality: Boolean,
     @ColumnInfo(name = "notify_delete") private var notifyDeletion: Boolean
 ) : BaseObservable() {
-    constructor( title: String, start: Long, end : Long ) : this(
+
+    constructor(title: String, start: Long, end: Long):this(
         title,
         "Recording Plan",
         false,
@@ -27,6 +29,12 @@ data class PlanItem(
         false,
         false
     )
+    constructor( title: String) : this( title, 0 ,0){
+        val now : LocalDate = LocalDate.now()
+        val nowAsLong : Long = formatDateIntsToDateLong(now.year,now.monthValue,now.dayOfMonth)
+        this.startDate = nowAsLong
+        this.endDate = nowAsLong
+    }
 
     @PrimaryKey(autoGenerate = true)
     var pid: Int = 0

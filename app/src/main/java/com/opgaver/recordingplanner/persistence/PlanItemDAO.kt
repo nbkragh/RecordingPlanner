@@ -6,7 +6,10 @@ import com.opgaver.recordingplanner.PlanItem
 @Dao
 interface PlanItemDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(planitems: List<PlanItem>)
+    suspend fun insertAll(planitems: List<PlanItem>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(planitem: PlanItem)
 
     @Query("SELECT * FROM planitems")
     suspend fun getAll(): List<PlanItem>

@@ -31,7 +31,7 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner{
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
 /*            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()*/
-            model.addPlan()
+            model.addPlan(PlanItem("NEW"))
             (( fragmentManager.findFragmentByTag("plans_list_fragment") as PlanListFragment)
                 .recyclerView?.adapter as PlanRecyclerViewAdapter).let {
                     it.smoothSnapToPosition( it.itemCount -1)
@@ -39,7 +39,6 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner{
 
         }
     }
-
 
     override fun onBackPressed() {
         model.plans.value?.forEach({ it.printAll() })

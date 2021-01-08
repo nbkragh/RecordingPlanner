@@ -33,7 +33,6 @@ class PlanRecyclerViewAdapter(
         plansData.plans.observe(lifecycleOwner, Observer<List<PlanItem>> {
             notifyDataSetChanged()
         })
-
     }
 
     override fun onAttachedToRecyclerView(rv: RecyclerView) {
@@ -42,26 +41,21 @@ class PlanRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): planItemViewHolder {
-
         val binding: PlanItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.plan_item,
             container,
             false
         )
-        return planItemViewHolder(binding, plansData, lifecycleOwner).also {
+        return planItemViewHolder(binding, plansData).also {
             binding.root.item_config_start_title.setOnClickListener {
                 datePickingReciever = binding.itemConfigStartTitle
-                onDateClick(it, binding.index)
-
+                onDateClick()
             }
             binding.root.item_config_end_title.setOnClickListener {
                 datePickingReciever = binding.itemConfigEndTitle
-                onDateClick(it, binding.index)
-
+                onDateClick()
             }
-
-
         }
     }
 
@@ -71,8 +65,6 @@ class PlanRecyclerViewAdapter(
         holder.binding.itemConfigsFrame.setVisibility(if (isExpanded) View.VISIBLE else View.GONE)
         holder.itemView.isActivated = isExpanded
 
-
-        //holder.binding.planitemslist = plansData.getPlans().value!!.get(position)
         holder.binding.expandButton.setOnClickListener {
 
             expandedPosition = if (isExpanded) -1 else position
@@ -90,8 +82,7 @@ class PlanRecyclerViewAdapter(
 
     inner class planItemViewHolder(
         val binding: PlanItemBinding,
-        val viewModel: ViewModelPlanList,
-        val lifecycleOwner: LifecycleOwner
+        val viewModel: ViewModelPlanList
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: PlanItem, position: Int) {
@@ -107,7 +98,7 @@ class PlanRecyclerViewAdapter(
     }
 
 
-    fun onDateClick(viewholder: View, index: Int) {
+    fun onDateClick() {
         DatePickerDialog(
             container.context, this,
             calendar.get(Calendar.YEAR),
@@ -117,15 +108,7 @@ class PlanRecyclerViewAdapter(
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-
-/*
-        var monthString: String =
-            if ((month + 1).toString().length < 2) "0" + (month + 1) else "" + (month + 1)
-        var dayString: String = if (day.toString().length < 2) "0" + day else "" + day
-*/
-
         datePickingReciever.setText(PlanItem.formatDateIntsToDateLong(year,month+1,day).toString())
-
     }
 
     fun smoothSnapToPosition(position: Int) {

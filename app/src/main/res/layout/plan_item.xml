@@ -89,16 +89,6 @@
                 android:orientation="vertical"
                 android:visibility="invisible">
 
-                <TextView
-
-                    android:id="@+id/item_configs_frame_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@{item.configsFrameTitle}"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-
-
                 <EditText
                     android:id="@+id/item_plan_name"
                     android:layout_width="wrap_content"

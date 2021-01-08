@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 
 class PlansFrameActivity : AppCompatActivity(), LifecycleOwner{
@@ -18,6 +16,8 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plans_frame)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+
         if (savedInstanceState == null) {
 
             val planListFrag = PlanListFragment().apply {

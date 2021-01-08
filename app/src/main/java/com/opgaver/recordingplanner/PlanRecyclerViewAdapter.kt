@@ -30,14 +30,14 @@ class PlanRecyclerViewAdapter(
     lateinit var recyclerView: RecyclerView
     lateinit var datePickingReciever: TextView
     init {
-        plansData.plans.observe(lifecycleOwner, Observer<MutableList<PlanItem>> {
+        plansData.plans.observe(lifecycleOwner, Observer<List<PlanItem>> {
             notifyDataSetChanged()
         })
 
     }
 
     override fun onAttachedToRecyclerView(rv: RecyclerView) {
-        super.onAttachedToRecyclerView(rv!!)
+        super.onAttachedToRecyclerView(rv)
         recyclerView = rv
     }
 
@@ -102,7 +102,7 @@ class PlanRecyclerViewAdapter(
         }
 
         override fun toString(): String {
-            return super.toString() + " '" + binding.planItemCategory+ "'"
+            return super.toString() + " '" + binding.planItemCategory + "'"
         }
     }
 
@@ -118,11 +118,13 @@ class PlanRecyclerViewAdapter(
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
 
+/*
         var monthString: String =
             if ((month + 1).toString().length < 2) "0" + (month + 1) else "" + (month + 1)
         var dayString: String = if (day.toString().length < 2) "0" + day else "" + day
+*/
 
-        datePickingReciever.setText("$year" + monthString + dayString)
+        datePickingReciever.setText(PlanItem.formatDateIntsToDateLong(year,month+1,day).toString())
 
     }
 

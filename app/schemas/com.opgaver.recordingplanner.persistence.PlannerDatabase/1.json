@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "be21b03304eff6d72d3d8f6df58ab9eb",
+    "entities": [
+      {
+        "tableName": "planitems",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `category` TEXT, `active` INTEGER NOT NULL, `start_Date` INTEGER NOT NULL, `end_Date` INTEGER NOT NULL, `auto_incr_quality` INTEGER NOT NULL, `notify_delete` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "pid",
+            "columnName": "pid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "start_Date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "end_Date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoIncreaseQuality",
+            "columnName": "auto_incr_quality",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notifyDeletion",
+            "columnName": "notify_delete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'be21b03304eff6d72d3d8f6df58ab9eb')"
+    ]
+  }
+}

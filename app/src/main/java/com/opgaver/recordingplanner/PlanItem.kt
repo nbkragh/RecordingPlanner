@@ -1,29 +1,35 @@
 package com.opgaver.recordingplanner
 
 
-import androidx.databinding.*
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.InverseMethod
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class PlanItem(
-    private var title: String = "",
-    private var category: String = "",
-    private var active: Boolean = false,
-    var configsFrameTitle: String = "",
-    private var startDate: Long,
-    private var endDate: Long,
-    private var autoIncreaseQuality: Boolean,
-    private var notifyDeletion: Boolean
+@Entity(tableName = "planitems")
+data class PlanItem(
+    @ColumnInfo(name = "title") private var title: String = "",
+    @ColumnInfo(name = "category") private var category: String = "",
+    @ColumnInfo(name = "active") private var active: Boolean = false,
+    @ColumnInfo(name = "start_Date") private var startDate: Long,
+    @ColumnInfo(name = "end_Date") private var endDate: Long,
+    @ColumnInfo(name = "auto_incr_quality") private var autoIncreaseQuality: Boolean,
+    @ColumnInfo(name = "notify_delete") private var notifyDeletion: Boolean
 ) : BaseObservable() {
-    constructor(title: String, category: String) : this(
+    constructor( title: String, start: Long, end : Long ) : this(
         title,
-        category,
+        "Recording Plan",
         false,
-        "some detail",
-        10101010,
-        20202020,
+        start,
+        end,
         false,
         false
     )
 
+    @PrimaryKey(autoGenerate = true)
+    var pid: Int = 0
 
     @Bindable
     fun getTitle(): String = title
@@ -90,7 +96,6 @@ class PlanItem(
         println(title)
         println(category)
         println(active)
-        println(configsFrameTitle)
         println(startDate)
         println(endDate)
         println(autoIncreaseQuality)
@@ -107,6 +112,15 @@ class PlanItem(
 
         @JvmStatic fun stringToDate(value: String): Long {
             return value.replace("/","").toLong()
+        }
+
+        fun formatDateIntsToDateLong(year: Int, month: Int, day: Int): Long{
+            // husk at checke om month starter ved 0
+            var yearString: String = year.toString()
+            var monthString: String = if (month.toString().length < 2) "0" + month else "" + month
+            var dayString: String = if (day.toString().length < 2) "0" + day else "" + day
+
+            return  (yearString+monthString+dayString).toLong()
         }
     }
 }

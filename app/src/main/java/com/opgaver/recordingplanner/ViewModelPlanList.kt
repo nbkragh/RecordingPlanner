@@ -27,4 +27,10 @@ class ViewModelPlanList(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    fun deletePlan(plan: PlanItem){
+        viewModelScope.launch {
+            database.planitemDAO().delete(plan)
+        }
+    }
+
 }

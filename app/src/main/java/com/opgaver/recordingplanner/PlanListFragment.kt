@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
@@ -59,6 +60,8 @@ class PlanListFragment : Fragment() {
                     )
                 }
                 recyclerView = view
+                ItemTouchHelper(SwipetToDeleteCallback((recyclerView!!.adapter as PlanRecyclerViewAdapter)!!)).attachToRecyclerView(recyclerView)
+
                 model.plans.observe(viewLifecycleOwner, Observer {
                     val adapter = (recyclerView!!.adapter as PlanRecyclerViewAdapter)
                     if (it.size > adapter.plans.size) {

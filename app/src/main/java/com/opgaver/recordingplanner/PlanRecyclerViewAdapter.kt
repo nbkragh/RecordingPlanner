@@ -2,6 +2,7 @@ package com.opgaver.recordingplanner
 
 import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
+import android.graphics.Color.rgb
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -93,6 +94,27 @@ class PlanRecyclerViewAdapter(
         ).show()
     }
 
+    fun deleteItem(i: Int) {
+        println(i)
+        val deleteItem = plans.get(i)
+        plans.removeAt(i)
+        notifyItemRemoved(i)
+        Snackbar.make(container, "1 Item Plan deleted", Snackbar.LENGTH_LONG)
+            .setAction("    UNDO     ") {
+                plans.add(i, deleteItem)
+                notifyItemInserted(i)
+            }.setDuration(2000)
+            .addCallback(
+                object : Snackbar.Callback() {
+                    override fun onDismissed(snackbar: Snackbar, event: Int) {
+                        if (event != DISMISS_EVENT_ACTION) {
+                            model.deletePlan(deleteItem)
+                        }
+                    }
+                }
+            ).show()
+    }
+
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         datePickingReciever.setText(
             PlanItem.formatDateIntsToDateLong(year, month + 1, day).toString()
@@ -146,8 +168,8 @@ class PlanRecyclerViewAdapter(
             this.itemView.x = container.width.toFloat()
 
             ObjectAnimator.ofFloat(this.itemView, "translationX", 0f).apply {
-                interpolator = Interpolators(Easings.ELASTIC_OUT)
-                duration = 800
+                interpolator = Interpolators(Easings.BACK_OUT)
+                duration = 600
                 startDelay = delay
                 start()
             }

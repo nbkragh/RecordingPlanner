@@ -13,23 +13,17 @@ class ViewModelPlanList(app: Application) : AndroidViewModel(app) {
 
     val database: PlannerDatabase = PlannerDatabase.getInstance(app)
 
-    val plans: MutableLiveData<List<PlanItem>> =  MutableLiveData()
+    val plans  = database.planitemDAO().getAllLive()
 
-    init {
-        plans.value = ArrayList()
-        loadPlans()
-    }
-    private fun loadPlans(){
+     fun addPlan(plan: PlanItem) {
         viewModelScope.launch {
-            plans.postValue(database.planitemDAO().getAll().toMutableList())
+            database.planitemDAO().insert(plan)
         }
     }
 
-    fun addPlan(plan: PlanItem) {
+    fun updatePlan(plan: PlanItem){
         viewModelScope.launch {
-
-            database.planitemDAO().insert(plan)
-            plans.postValue(database.planitemDAO().getAll().toMutableList())
+            database.planitemDAO().updateUsers(plan)
         }
     }
 

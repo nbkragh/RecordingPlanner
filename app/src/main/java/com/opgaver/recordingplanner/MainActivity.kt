@@ -4,7 +4,9 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -14,12 +16,11 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
-    // Null until onCreateView.
+    // Null indtil onCreateView.
     private var toPlans_Button: Button? = null
     private var toRecordings_Button: Button? = null
 
     lateinit var database : PlannerDatabase
-
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +46,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun prepopulateDatabase(){
-
         GlobalScope.launch {
-            if (database.planitemDAO().getAll().size < 3) {
+            database.clearAllTables()
+
+
+            if ( database.planitemDAO().getAll().size < 3) {
                 val now : LocalDate = LocalDate.now()
                 val nowAsLong : Long = PlanItem.formatDateIntsToDateLong(now.year,now.monthValue,now.dayOfMonth)
 

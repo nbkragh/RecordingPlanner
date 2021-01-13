@@ -1,5 +1,6 @@
 package com.opgaver.recordingplanner.persistence
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.opgaver.recordingplanner.PlanItem
 
@@ -10,6 +11,9 @@ interface PlanItemDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(planitem: PlanItem)
+
+    @Query("SELECT * FROM planitems")
+    fun getAllLive(): LiveData<List<PlanItem>>
 
     @Query("SELECT * FROM planitems")
     suspend fun getAll(): List<PlanItem>

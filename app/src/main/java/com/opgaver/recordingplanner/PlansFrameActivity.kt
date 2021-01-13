@@ -1,13 +1,21 @@
 package com.opgaver.recordingplanner
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnNextLayout
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
-class PlansFrameActivity : AppCompatActivity(), LifecycleOwner{
+class PlansFrameActivity : AppCompatActivity(), LifecycleOwner {
     private val fragmentManager = supportFragmentManager
     val model: ViewModelPlanList by viewModels()
 
@@ -29,14 +37,7 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner{
         }
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-/*            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()*/
             model.addPlan(PlanItem("NEW"))
-            (( fragmentManager.findFragmentByTag("plans_list_fragment") as PlanListFragment)
-                .recyclerView?.adapter as PlanRecyclerViewAdapter).let {
-                    it.smoothSnapToPosition( it.itemCount -1)
-                }
-
         }
     }
 

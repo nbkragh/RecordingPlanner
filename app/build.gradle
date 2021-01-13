@@ -54,6 +54,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
+    //Easing animationer
+    implementation 'com.ramijemli:easings:1.0.0'
+
     implementation 'com.google.firebase:firebase-crashlytics-ktx:17.3.0'
     implementation 'com.google.firebase:firebase-analytics-ktx:18.0.0'
 
@@ -67,8 +70,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'com.j256.ormlite:ormlite-core:5.1'
-    implementation 'com.j256.ormlite:ormlite-android:5.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

@@ -27,14 +27,17 @@
         android:padding="5pt"
         app:cardBackgroundColor="@color/primaryDarkColor"
         app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="true">
+        app:cardPreventCornerOverlap="true"
+        android:animateLayoutChanges="true">
 
         <RelativeLayout
             android:id="@+id/above_expand_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="30dp"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:animateLayoutChanges="true"
+            >
 
             <TextView
                 android:id="@+id/plan_item_title"
@@ -44,10 +47,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="16dp"
                 android:text="@{item.title}"
-                android:textAppearance="?attr/textAppearanceListItem"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textAppearance="?attr/textAppearanceListItem" />
 
             <TextView
                 android:id="@+id/plan_item_category"
@@ -58,11 +58,7 @@
                 android:layout_marginStart="48dp"
                 android:text="@{item.category}"
                 android:textAppearance="?attr/textAppearanceListItem"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/plan_item_onoff_switch"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/plan_item_title"
-                app:layout_constraintTop_toTopOf="parent" />
+/>
 
             <Switch
                 android:id="@+id/plan_item_onoff_switch"
@@ -73,26 +69,27 @@
                 android:layout_marginEnd="8dp"
                 android:height="30dp"
                 android:checked="@={item.active}"
+                android:onClick="@{ () -> viewmodel.updatePlan(item)}"
                 android:showText="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+
 
                 tools:text="ON/OFF  " />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/item_configs_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/plan_item_onoff_switch"
+                android:layout_marginBottom="10pt"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/item_plan_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_margin="@dimen/text_margin"
                     android:text="@={item.title}"
                     android:textAppearance="?attr/textAppearanceListItem"
@@ -103,30 +100,37 @@
                     android:id="@+id/item_config_start_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/item_plan_name"
                     android:layout_margin="@dimen/text_margin"
-                    android:text="@={item.Companion.dateToString(item.startDate)}"
                     android:focusable="false"
+                    android:text="@={item.Companion.dateToString(item.startDate)}"
                     android:textAppearance="?attr/textAppearanceListItem" />
-
 
 
                 <TextView
                     android:id="@+id/item_config_end_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@={item.Companion.dateToString(item.endDate)}"
+                    android:layout_below="@id/item_plan_name"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
                     android:focusable="false"
+                    android:text="@={item.Companion.dateToString(item.endDate)}"
                     android:textAppearance="?attr/textAppearanceListItem" />
-
-
 
                 <Switch
                     android:id="@+id/config_autoIncrQuality_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Auto increase Quality           "
+                    android:layout_below="@id/item_config_start_title"
                     android:checked="@={item.autoIncreaseQuality}"
+                    android:fontFamily="sans-serif-light"
+                    android:showText="false"
+                    android:text="Auto increase Quality  "
+                    android:textSize="16sp"
                     tools:layout_conversion_absoluteHeight="0dp"
                     tools:layout_conversion_absoluteWidth="0dp" />
 
@@ -135,16 +139,18 @@
                     android:id="@+id/config_notifyDelete_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notify deletion        "
+                    android:layout_below="@id/item_config_end_title"
+                    android:layout_alignParentEnd="true"
                     android:checked="@={item.notifyDeletion}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="sans-serif-light"
+                    android:showText="false"
+                    android:text="Notify deletion  "
+                    android:textSize="16sp"
                     tools:layout_conversion_absoluteHeight="0dp"
                     tools:layout_conversion_absoluteWidth="0dp" />
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <ImageButton
                 android:id="@+id/expand_button"

@@ -12,11 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
-
+        <activity
+            android:name=".MainActivityTabbed"
+            android:label="@string/title_activity_main_tabbed"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".PlansFrameActivity"
-            android:label="@string/activity_plans_frame"></activity>
+            android:label="@string/activity_plans_frame" >
+        </activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

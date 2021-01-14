@@ -40,7 +40,9 @@ class MainActivity : AppCompatActivity() {
 
         toRecordings_Button = findViewById(R.id.toRecordings_button)
         toRecordings_Button!!.setOnClickListener {
-            throw RuntimeException("Crashing this App with no survivors")
+            val intent = Intent(this, MainActivityTabbed::class.java)
+            startActivity(intent,
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
     }

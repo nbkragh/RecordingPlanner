@@ -66,14 +66,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="8dp"
-                android:height="30dp"
+                android:layout_marginTop="0dp"
                 android:checked="@={item.active}"
                 android:onClick="@{ () -> viewmodel.updatePlan(item)}"
                 android:showText="false"
 
 
-                tools:text="ON/OFF  " />
+                android:text="Active" />
 
             <RelativeLayout
                 android:id="@+id/item_configs_frame"
@@ -83,53 +82,108 @@
                 android:layout_marginBottom="10pt"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <EditText
                     android:id="@+id/item_plan_name"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_margin="@dimen/text_margin"
                     android:text="@={item.title}"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    tools:text="title" />
+                    tools:text="title"
+                    android:textAlignment="center"/>
 
 
                 <TextView
                     android:id="@+id/item_config_start_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/item_plan_name"
-                    android:layout_margin="@dimen/text_margin"
+                    android:focusable="false"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Start"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/item_config_start_date_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_config_start_title"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:clickable="false"
                     android:focusable="false"
                     android:text="@={item.Companion.dateToString(item.startDate)}"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
+                <TextView
+                    android:id="@+id/item_config_start_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_config_start_date_value"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:focusable="false"
+                    android:text="00:01"
+                    android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
                     android:id="@+id/item_config_end_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/item_plan_name"
+                    android:layout_alignParentEnd="true"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:text="End"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/item_config_end_date_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_config_end_title"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="@dimen/text_margin"
                     android:layout_marginTop="@dimen/text_margin"
                     android:layout_marginEnd="@dimen/text_margin"
                     android:layout_marginBottom="@dimen/text_margin"
+                    android:clickable="false"
                     android:focusable="false"
                     android:text="@={item.Companion.dateToString(item.endDate)}"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/item_config_end_time_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_config_end_date_value"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:focusable="false"
+                    android:text="23:59"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <Switch
                     android:id="@+id/config_autoIncrQuality_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/item_config_start_title"
+                    android:layout_below="@id/config_notifyDelete_switch"
                     android:checked="@={item.autoIncreaseQuality}"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="sans-serif"
+                    android:paddingLeft="14dp"
                     android:showText="false"
-                    android:text="Auto increase Quality  "
+                    android:text="Auto increase Quality"
                     android:textSize="16sp"
                     tools:layout_conversion_absoluteHeight="0dp"
                     tools:layout_conversion_absoluteWidth="0dp" />
@@ -139,10 +193,11 @@
                     android:id="@+id/config_notifyDelete_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/item_config_end_title"
+                    android:layout_below="@id/item_config_end_time_value"
                     android:layout_alignParentEnd="true"
                     android:checked="@={item.notifyDeletion}"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="sans-serif"
+                    android:paddingRight="7dp"
                     android:showText="false"
                     android:text="Notify deletion  "
                     android:textSize="16sp"
@@ -161,8 +216,13 @@
                 android:layout_gravity="bottom"
                 app:srcCompat="@drawable/baseline_expand_more_white_18dp" />
 
+            <LinearLayout
+                android:id="@+id/anchor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expand_button"
+                android:orientation="horizontal"></LinearLayout>
         </RelativeLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </layout><!--
 <?xml version="1.0" encoding="utf-8"?>

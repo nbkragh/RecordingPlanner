@@ -1,18 +1,15 @@
 package com.opgaver.recordingplanner
 
+import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
-import android.view.View
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnNextLayout
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 
 class PlansFrameActivity : AppCompatActivity(), LifecycleOwner {
@@ -36,14 +33,22 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner {
                 .commit()
         }
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            model.addPlan(PlanItem("NEW"))
+    }
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
+                }
+            }
         }
+        return super.dispatchTouchEvent(event)
     }
 
-    override fun onBackPressed() {
-        model.plans.value?.forEach({ it.printAll() })
-        super.onBackPressed()
-    }
 
 }

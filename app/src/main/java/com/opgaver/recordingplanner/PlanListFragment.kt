@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.android.awaitFrame
 
 
@@ -41,7 +42,11 @@ class PlanListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (recyclerView == null) {
+
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener { view ->
+            model.addPlan(PlanItem("NEW"))
+        }
+        //if (recyclerView == null) {
             val view = inflater.inflate(R.layout.fragment_plan_recyclerview, container, false)
             // Set the adapter
             if (view is RecyclerView) {
@@ -60,10 +65,13 @@ class PlanListFragment : Fragment() {
                     )
                 }
                 recyclerView = view
+                view.isFocusableInTouchMode = true
                 ItemTouchHelper(SwipetToDeleteCallback((recyclerView!!.adapter as PlanRecyclerViewAdapter)!!)).attachToRecyclerView(recyclerView)
 
                 model.plans.observe(viewLifecycleOwner, Observer {
-                    val adapter = (recyclerView!!.adapter as PlanRecyclerViewAdapter)
+                    (recyclerView!!.adapter as PlanRecyclerViewAdapter).setPlans(it)
+                })
+                    /*val adapter = (recyclerView!!.adapter as PlanRecyclerViewAdapter)
                     if (it.size > adapter.plans.size) {
                         if (adapter.itemCount > 0) {
                             adapter.plans.add(it.last())
@@ -85,9 +93,9 @@ class PlanListFragment : Fragment() {
                         adapter.plans = it.toMutableList()
                         adapter.notifyDataSetChanged()
                     }
-                })
+                })*/
             }
-        }
+        //}
         return recyclerView
     }
     companion object {
@@ -96,7 +104,7 @@ class PlanListFragment : Fragment() {
 
         // TODO: Customize parameter initialization
         @JvmStatic
-        fun newInstance(columnCount: Int, model: ViewModelPlanList) =
+        fun newInstance(columnCount: Int) =
             PlanListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)

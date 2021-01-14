@@ -2,17 +2,23 @@ package com.opgaver.recordingplanner
 
 import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
-import android.graphics.Color.rgb
+import android.transition.Fade
 import android.util.DisplayMetrics
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnNextLayout
+import androidx.core.view.get
+import androidx.core.view.setMargins
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.opgaver.recordingplanner.databinding.PlanItemBinding
 import com.ramijemli.easings.Easings
@@ -49,11 +55,11 @@ class PlanRecyclerViewAdapter(
         if (expandedPosition == itemCount - 1) smoothSnapToPosition(itemCount + 1)
 
         return planItemViewHolder(binding, model).also {
-            binding.root.item_config_start_title.setOnClickListener {
+            binding.root.item_config_start_date_value.setOnClickListener {
                 datePickingReciever = binding.itemConfigStartTitle
                 onDateClick()
             }
-            binding.root.item_config_end_title.setOnClickListener {
+            binding.root.item_config_end_date_value.setOnClickListener {
                 datePickingReciever = binding.itemConfigEndTitle
                 onDateClick()
             }
@@ -94,21 +100,27 @@ class PlanRecyclerViewAdapter(
         ).show()
     }
 
+
     fun deleteItem(i: Int) {
         println(i)
         val deleteItem = plans.get(i)
-        plans.removeAt(i)
-        notifyItemRemoved(i)
+
+
         Snackbar.make(container, "1 Item Plan deleted", Snackbar.LENGTH_LONG)
             .setAction("    UNDO     ") {
-                plans.add(i, deleteItem)
-                notifyItemInserted(i)
-            }.setDuration(2000)
+/*                plans.add(i, deleteItem)
+                notifyItemInserted(i)*/
+                notifyItemChanged(i)
+            }.setDuration(2800)
+            .setAnchorView(recyclerView.get(i).anchor)
+            //.setActionTextColor(ContextCompat.getColor(container.context, R.color.secondaryColor))
             .addCallback(
                 object : Snackbar.Callback() {
                     override fun onDismissed(snackbar: Snackbar, event: Int) {
                         if (event != DISMISS_EVENT_ACTION) {
                             model.deletePlan(deleteItem)
+                            plans.removeAt(i)
+                            notifyItemRemoved(i)
                         }
                     }
                 }
@@ -136,6 +148,31 @@ class PlanRecyclerViewAdapter(
 
     }
 
+    @JvmName("setPlans1")
+    fun setPlans(newPlans : List<PlanItem>){
+        if (newPlans.size > plans.size) {
+            if (itemCount > 0) {
+                plans.add(newPlans.last())
+                notifyItemInserted(itemCount)
+                recyclerView!!.doOnNextLayout {
+                    (recyclerView!!.findViewHolderForLayoutPosition(plans.size - 1) as? PlanRecyclerViewAdapter.planItemViewHolder)?.animate()
+                    smoothSnapToPosition(itemCount)
+                }
+            } else {
+
+                plans = newPlans.toMutableList()
+                for (i in 0 until itemCount) {
+                    recyclerView!!.doOnNextLayout { (recyclerView!!.findViewHolderForLayoutPosition(i) as? PlanRecyclerViewAdapter.planItemViewHolder)?.animate(i * 50L) }
+                    notifyItemInserted(i)
+                }
+            }
+            notifyDataSetChanged()
+        } else {
+            plans = newPlans.toMutableList()
+            notifyDataSetChanged()
+        }
+    }
+
     inner class planItemViewHolder(
         val binding: PlanItemBinding,
         val viewModel: ViewModelPlanList
@@ -149,8 +186,10 @@ class PlanRecyclerViewAdapter(
             binding.expandButton.setOnClickListener {
                 if (expanded) {
                     model.updatePlan(plans.get(position))
-                    Snackbar.make(container, "SAVED", Snackbar.LENGTH_INDEFINITE)
-                        .setAnchorView(container.right).setDuration(1000).show()
+                    val snackBar =Snackbar.make(container, "SAVED", Snackbar.LENGTH_INDEFINITE)
+                        .setDuration(1000)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        snackBar.show()
                 } else {
                     recyclerView!!.doOnNextLayout {
                         smoothSnapToPosition(position)
@@ -164,9 +203,7 @@ class PlanRecyclerViewAdapter(
         }
 
         fun animate(delay: Long = 0) {
-
             this.itemView.x = container.width.toFloat()
-
             ObjectAnimator.ofFloat(this.itemView, "translationX", 0f).apply {
                 interpolator = Interpolators(Easings.BACK_OUT)
                 duration = 600

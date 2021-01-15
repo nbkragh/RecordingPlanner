@@ -36,8 +36,7 @@
             android:layout_height="wrap_content"
             android:minHeight="30dp"
             android:padding="10dp"
-            android:animateLayoutChanges="true"
-            >
+            android:animateLayoutChanges="true">
 
             <TextView
                 android:id="@+id/plan_item_title"
@@ -57,8 +56,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="48dp"
                 android:text="@{item.category}"
-                android:textAppearance="?attr/textAppearanceListItem"
-/>
+                android:textAppearance="?attr/textAppearanceListItem" />
 
             <Switch
                 android:id="@+id/plan_item_onoff_switch"
@@ -70,8 +68,6 @@
                 android:checked="@={item.active}"
                 android:onClick="@{ () -> viewmodel.updatePlan(item)}"
                 android:showText="false"
-
-
                 android:text="Active" />
 
             <RelativeLayout
@@ -86,16 +82,16 @@
 
                 <EditText
                     android:id="@+id/item_plan_name"
-                    android:imeOptions="actionDone"
-                    android:singleLine="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_margin="@dimen/text_margin"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
                     android:text="@={item.title}"
+                    android:textAlignment="center"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    tools:text="title"
-                    android:textAlignment="center"/>
+                    tools:text="title" />
 
 
                 <TextView
@@ -103,9 +99,8 @@
                     android:layout_width="132dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/item_plan_name"
-                    android:focusable="false"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:focusable="false"
                     android:text="Start"
                     android:textAlignment="center" />
 
@@ -142,7 +137,6 @@
                     android:layout_below="@id/item_plan_name"
                     android:layout_alignParentEnd="true"
                     android:focusable="false"
-                    android:inputType="textPersonName"
                     android:text="End"
                     android:textAlignment="center" />
 
@@ -174,7 +168,7 @@
                     android:text="23:59"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
-                <Switch
+                <!--                <Switch
                     android:id="@+id/config_autoIncrQuality_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -186,7 +180,7 @@
                     android:text="Auto increase Quality"
                     android:textSize="16sp"
                     tools:layout_conversion_absoluteHeight="0dp"
-                    tools:layout_conversion_absoluteWidth="0dp" />
+                    tools:layout_conversion_absoluteWidth="0dp" />-->
 
 
                 <Switch
@@ -194,27 +188,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/item_config_end_time_value"
-                    android:layout_alignParentEnd="true"
                     android:checked="@={item.notifyDeletion}"
                     android:fontFamily="sans-serif"
                     android:paddingRight="7dp"
                     android:showText="false"
-                    android:text="Notify deletion  "
+                    android:text="Notify when to delete recording"
                     android:textSize="16sp"
                     tools:layout_conversion_absoluteHeight="0dp"
                     tools:layout_conversion_absoluteWidth="0dp" />
 
+                <Button
+                    android:id="@+id/delete_plan_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/config_notifyDelete_switch"
+                    android:layout_alignParentEnd="true"
+                    android:foreground="@android:drawable/ic_menu_delete"
+                    android:foregroundGravity="center_vertical|center_horizontal"
+                    android:minWidth="0dip"
+                    android:minHeight="0dip"
+                    app:iconPadding="0dp" />
+
 
             </RelativeLayout>
 
-            <ImageButton
+            <Button
                 android:id="@+id/expand_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignWithParentIfMissing="false"
                 android:layout_below="@id/item_configs_frame"
                 android:layout_gravity="bottom"
-                app:srcCompat="@drawable/baseline_expand_more_white_18dp" />
+                android:backgroundTint="@color/primaryColor"
+                android:foreground="@drawable/baseline_expand_more_white_18dp"
+                android:foregroundGravity="center_vertical|center_horizontal"
+                android:foregroundTint="@color/secondaryColor"
+                android:text="SAVE"
+                android:textAllCaps="true"
+                android:textColor="@color/secondaryColor"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:id="@+id/anchor"
@@ -222,6 +235,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/expand_button"
                 android:orientation="horizontal"></LinearLayout>
+
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout><!--

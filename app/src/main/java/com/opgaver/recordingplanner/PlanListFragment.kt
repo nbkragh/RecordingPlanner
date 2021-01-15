@@ -46,58 +46,39 @@ class PlanListFragment : Fragment() {
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener { view ->
             model.addPlan(PlanItem("NEW"))
         }
-        //if (recyclerView == null) {
-            val view = inflater.inflate(R.layout.fragment_plan_recyclerview, container, false)
-            // Set the adapter
-            if (view is RecyclerView) {
-                with(view) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(
-                            context,
-                            RecyclerView.VERTICAL,
-                            false
-                        )
-                        else -> GridLayoutManager(context, columnCount)
-                    }
-                    adapter = PlanRecyclerViewAdapter(
-                        model,
-                        this
+
+        val view = inflater.inflate(R.layout.fragment_plan_recyclerview, container, false)
+        // Set the adapter
+        if (view is RecyclerView) {
+            with(view) {
+                layoutManager = when {
+                    columnCount <= 1 -> LinearLayoutManager(
+                        context,
+                        RecyclerView.VERTICAL,
+                        false
                     )
+                    else -> GridLayoutManager(context, columnCount)
                 }
-                recyclerView = view
-                view.isFocusableInTouchMode = true
-                ItemTouchHelper(SwipetToDeleteCallback((recyclerView!!.adapter as PlanRecyclerViewAdapter)!!)).attachToRecyclerView(recyclerView)
-
-                model.plans.observe(viewLifecycleOwner, Observer {
-                    (recyclerView!!.adapter as PlanRecyclerViewAdapter).setPlans(it)
-                })
-                    /*val adapter = (recyclerView!!.adapter as PlanRecyclerViewAdapter)
-                    if (it.size > adapter.plans.size) {
-                        if (adapter.itemCount > 0) {
-                            adapter.plans.add(it.last())
-                            adapter.notifyItemInserted(adapter.itemCount)
-                            recyclerView!!.doOnNextLayout {
-                                (recyclerView!!.findViewHolderForLayoutPosition(adapter.plans.size - 1) as? PlanRecyclerViewAdapter.planItemViewHolder)?.animate()
-                                adapter.smoothSnapToPosition(adapter.itemCount)
-                            }
-                        } else {
-
-                            adapter.plans = it.toMutableList()
-                            for (i in 0 until adapter.itemCount) {
-                                recyclerView!!.doOnNextLayout { (recyclerView!!.findViewHolderForLayoutPosition(i) as? PlanRecyclerViewAdapter.planItemViewHolder)?.animate(i * 50L) }
-                                adapter.notifyItemInserted(i)
-                            }
-                        }
-                        adapter.notifyDataSetChanged()
-                    } else {
-                        adapter.plans = it.toMutableList()
-                        adapter.notifyDataSetChanged()
-                    }
-                })*/
+                adapter = PlanRecyclerViewAdapter(
+                    model,
+                    this
+                )
             }
-        //}
+            recyclerView = view
+            view.isFocusableInTouchMode = true
+            ItemTouchHelper(SwipetToDeleteCallback((recyclerView!!.adapter as PlanRecyclerViewAdapter)!!)).attachToRecyclerView(
+                recyclerView
+            )
+
+            model.plans.observe(viewLifecycleOwner, Observer {
+                (recyclerView!!.adapter as PlanRecyclerViewAdapter).setPlans(it)
+            })
+        }
+
         return recyclerView
     }
+
+
     companion object {
         // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"

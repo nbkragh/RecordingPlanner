@@ -34,7 +34,7 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner {
         }
 
     }
-    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+/*    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             val v = currentFocus
             if (v is EditText) {
@@ -48,7 +48,7 @@ class PlansFrameActivity : AppCompatActivity(), LifecycleOwner {
             }
         }
         return super.dispatchTouchEvent(event)
-    }
+    }*/
 
 
 }

@@ -1,4 +1,4 @@
-package com.opgaver.recordingplanner.ui.main
+package com.opgaver.recordingplanner.ui.main_tapped
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +28,7 @@ class PlaceholderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_main_activity_tabbed, container, false)
+        val root = inflater.inflate(R.layout.fragment_placeholder, container, false)
         val textView: TextView = root.findViewById(R.id.section_label)
         pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
             textView.text = it

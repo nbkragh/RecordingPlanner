@@ -1,10 +1,9 @@
-package com.opgaver.recordingplanner.ui.main
+package com.opgaver.recordingplanner.ui.main_tapped
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 
 class PageViewModel : ViewModel() {
 

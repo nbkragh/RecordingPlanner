@@ -15,18 +15,18 @@
 
         <variable
             name="item"
-            type="com.opgaver.recordingplanner.PlanItem" />
+            type="com.opgaver.recordingplanner.planlist.PlanItem" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:layout_marginBottom="5dp"
         android:padding="5pt"
         app:cardBackgroundColor="@color/primaryDarkColor"
-        app:cardElevation="2dp"
+        app:cardElevation="10dp"
         app:cardPreventCornerOverlap="true"
         android:animateLayoutChanges="true">
 
@@ -188,11 +188,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/item_config_end_time_value"
+                    android:layout_marginHorizontal="7dp"
                     android:checked="@={item.notifyDeletion}"
                     android:fontFamily="sans-serif"
                     android:paddingRight="7dp"
                     android:showText="false"
-                    android:text="Notify when to delete recording"
+                    android:text="auto delete"
                     android:textSize="16sp"
                     tools:layout_conversion_absoluteHeight="0dp"
                     tools:layout_conversion_absoluteWidth="0dp" />
@@ -205,8 +206,8 @@
                     android:layout_alignParentEnd="true"
                     android:foreground="@android:drawable/ic_menu_delete"
                     android:foregroundGravity="center_vertical|center_horizontal"
-                    android:minWidth="0dip"
-                    android:minHeight="0dip"
+                    android:minWidth="60dip"
+                    android:minHeight="50dip"
                     app:iconPadding="0dp" />
 
 
@@ -256,7 +257,7 @@
 
         <variable
             name="item"
-            type="com.opgaver.recordingplanner.PlanItem" />
+            type="com.opgaver.recordingplanner.planlist.PlanItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -1,10 +1,9 @@
-package com.opgaver.recordingplanner
+package com.opgaver.recordingplanner.planlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.android.awaitFrame
+import com.opgaver.recordingplanner.R
+import com.opgaver.recordingplanner.SwipetToDeleteCallback
+import com.opgaver.recordingplanner.ViewModelPlanList
 
 
 /**
@@ -69,15 +70,25 @@ class PlanListFragment : Fragment() {
             ItemTouchHelper(SwipetToDeleteCallback((recyclerView!!.adapter as PlanRecyclerViewAdapter)!!)).attachToRecyclerView(
                 recyclerView
             )
-
             model.plans.observe(viewLifecycleOwner, Observer {
                 (recyclerView!!.adapter as PlanRecyclerViewAdapter).setPlans(it)
             })
+
         }
 
         return recyclerView
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
+        (recyclerView!!.adapter as? PlanRecyclerViewAdapter)?.setPlans(model.plans.value ?: ArrayList())
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (recyclerView!!.adapter as PlanRecyclerViewAdapter).setPlans(ArrayList())
+    }
 
     companion object {
         // TODO: Customize parameter argument names

@@ -2,11 +2,10 @@ package com.opgaver.recordingplanner
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.opgaver.recordingplanner.persistence.PlannerDatabase
+import com.opgaver.recordingplanner.planlist.PlanItem
 import kotlinx.coroutines.launch
-import java.util.ArrayList
 
 
 class ViewModelPlanList(app: Application) : AndroidViewModel(app) {

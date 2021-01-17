@@ -1,16 +1,17 @@
-package com.opgaver.recordingplanner
+package com.opgaver.recordingplanner.old
 
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.opgaver.recordingplanner.MainActivityTabbed
+import com.opgaver.recordingplanner.R
 import com.opgaver.recordingplanner.persistence.PlannerDatabase
+import com.opgaver.recordingplanner.planlist.PlanItem
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -50,11 +51,10 @@ class MainActivity : AppCompatActivity() {
     fun prepopulateDatabase(){
         GlobalScope.launch {
             database.clearAllTables()
-
-
             if ( database.planitemDAO().getAll().size < 3) {
                 val now : LocalDate = LocalDate.now()
-                val nowAsLong : Long = PlanItem.formatDateIntsToDateLong(now.year,now.monthValue,now.dayOfMonth)
+                val nowAsLong : Long =
+                    PlanItem.formatDateIntsToDateLong(now.year, now.monthValue, now.dayOfMonth)
 
                 val itemList : MutableList<PlanItem> = emptyList<PlanItem>().toMutableList()
                 itemList.add(PlanItem("FIRST",nowAsLong,nowAsLong+1))

@@ -2,7 +2,7 @@ package com.opgaver.recordingplanner.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.opgaver.recordingplanner.PlanItem
+import com.opgaver.recordingplanner.planlist.PlanItem
 
 @Dao
 interface PlanItemDAO {

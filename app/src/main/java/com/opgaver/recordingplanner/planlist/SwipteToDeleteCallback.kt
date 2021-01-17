@@ -2,6 +2,7 @@ package com.opgaver.recordingplanner
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.opgaver.recordingplanner.planlist.PlanRecyclerViewAdapter
 
 class SwipetToDeleteCallback(
     var adapter: PlanRecyclerViewAdapter

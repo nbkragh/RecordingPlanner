@@ -1,14 +1,21 @@
-package com.opgaver.recordingplanner
+package com.opgaver.recordingplanner.recordinglist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.opgaver.recordingplanner.dummy.DummyContent
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.opgaver.recordingplanner.R
+import com.opgaver.recordingplanner.ViewModelPlanList
+import com.opgaver.recordingplanner.planlist.PlanItem
+import java.util.*
+
 
 /**
  * A fragment representing a list of Items.
@@ -16,7 +23,9 @@ import com.opgaver.recordingplanner.dummy.DummyContent
 class RecordingListFragment : Fragment() {
 
     private var columnCount = 1
-
+    private var planid = -1
+    val model: ViewModelPlanList by activityViewModels() //scoped til fragments ejer activity
+    var recyclerView: RecyclerView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,10 +47,33 @@ class RecordingListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = RecordingRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = RecordingRecyclerViewAdapter()
             }
+            recyclerView = view
+            model.plans.observe(viewLifecycleOwner, Observer {
+
+                if (planid > -1) {
+                    var selecteditems = ArrayList<PlanItem>()
+                    for (plan in it) {
+                        if (plan.pid == planid) {
+                            selecteditems.add(plan)
+                        }
+                    }
+                    (recyclerView!!.adapter as RecordingRecyclerViewAdapter).setRecordings(
+                        selecteditems
+                    )
+                } else {
+                    (recyclerView!!.adapter as RecordingRecyclerViewAdapter).setRecordings(it)
+                }
+            })
         }
+
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
     }
 
     companion object {

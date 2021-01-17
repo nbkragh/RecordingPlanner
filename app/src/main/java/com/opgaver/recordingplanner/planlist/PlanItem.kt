@@ -1,4 +1,4 @@
-package com.opgaver.recordingplanner
+package com.opgaver.recordingplanner.planlist
 
 
 import androidx.databinding.BaseObservable
@@ -7,6 +7,7 @@ import androidx.databinding.InverseMethod
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.opgaver.recordingplanner.BR
 import java.time.LocalDate
 
 @Entity(tableName = "planitems")

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.opgaver.recordingplanner.PlanItem
+import com.opgaver.recordingplanner.planlist.PlanItem
 
 @Database(entities = arrayOf(PlanItem::class), version = 1)
 abstract class PlannerDatabase : RoomDatabase() {
@@ -18,9 +18,5 @@ abstract class PlannerDatabase : RoomDatabase() {
             return instance?:Room.databaseBuilder(context, PlannerDatabase::class.java, "plannerDB").build()
 
         }
-
-
-
-
     }
 }

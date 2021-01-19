@@ -60,26 +60,26 @@ class PlanRecyclerViewAdapter(
                 onDateClick()
             }
             binding.root.plan_item_onoff_switch.setOnClickListener {
-
                 Snackbar.make(container, "Plan is active", Snackbar.LENGTH_INDEFINITE)
                     .setAnchorView(container).setDuration(1000).show()
-
             }
             binding.root.delete_plan_button.setOnClickListener {
                 binding.root.alpha = 0.5F
                 deleteItem(binding.index)
+            }
+            binding.gotoRecordingsButton.setOnClickListener{
+                println(model.selectedPlan.value )
+                model.selectedPlan.value = binding.item?.pid
             }
         }
     }
 
     override fun onBindViewHolder(holder: planItemViewHolder, position: Int) {
         holder.bind(plans.get(position), position)
-
         if (holder.expanded) {
             holder.binding.expandButton.text = "SAVE"
             holder.binding.expandButton.foreground.alpha = 0
             holder.binding.itemConfigsFrame.setVisibility(View.VISIBLE)
-
         } else {
             holder.binding.expandButton.text = ""
             holder.binding.expandButton.foreground.alpha = 255
@@ -109,11 +109,8 @@ class PlanRecyclerViewAdapter(
             .setAction("    UNDO     ") {
                 var alpha = recyclerView.findViewHolderForAdapterPosition(i)?.itemView?.alpha!!
                 if (alpha < 1.0F) {
-
                     recyclerView.findViewHolderForAdapterPosition(i)?.itemView?.alpha = 1.0F
-
                 } else {
-
                         (recyclerView.findViewHolderForAdapterPosition(i) as planItemViewHolder).animate()
                     notifyDataSetChanged()
                 }

@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.opgaver.recordingplanner.R
-import com.opgaver.recordingplanner.dummy.DummyContent.DummyItem
 import com.opgaver.recordingplanner.planlist.PlanItem
+import kotlinx.android.synthetic.main.recording_item.view.*
 import java.util.*
 
 /**
@@ -27,18 +27,20 @@ class RecordingRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = recordings[position]
-        holder.idView.text = "${item.getStartDate()} 00:00"
-        holder.contentView.text = "${item.getEndDate()} 23:59"
+        holder.name.text = "${item.getTitle()}"
+        holder.startDate.text = "${item.getStartDate()} 00:00"
+        holder.endDate.text = "${item.getEndDate()} 23:59"
     }
 
     override fun getItemCount(): Int = recordings.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.item_number)
-        val contentView: TextView = view.findViewById(R.id.content)
+        val name : TextView = view.plan_name
+        val startDate : TextView = view.start_date_text
+        val endDate: TextView = view.end_date_text
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + endDate.text + "'"
         }
     }
 

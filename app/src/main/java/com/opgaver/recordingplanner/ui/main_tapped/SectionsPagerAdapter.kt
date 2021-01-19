@@ -25,14 +25,11 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentActivity) :
     FragmentStateAdapter(fm) {
 
 
-    fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
-    }
-
     override fun getItemCount(): Int {
         // Show 2 total pages.
         return 2
     }
+
 
     override fun createFragment(position: Int): Fragment {
 

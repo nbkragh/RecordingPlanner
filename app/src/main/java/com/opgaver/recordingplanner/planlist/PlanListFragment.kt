@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.opgaver.recordingplanner.MainActivityTabbed
 import com.opgaver.recordingplanner.R
 import com.opgaver.recordingplanner.SwipetToDeleteCallback
 import com.opgaver.recordingplanner.ViewModelPlanList
@@ -43,11 +44,6 @@ class PlanListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener { view ->
-            model.addPlan(PlanItem("NEW"))
-        }
-
         val view = inflater.inflate(R.layout.fragment_plan_recyclerview, container, false)
         // Set the adapter
         if (view is RecyclerView) {
@@ -72,6 +68,9 @@ class PlanListFragment : Fragment() {
             )
             model.plans.observe(viewLifecycleOwner, Observer {
                 (recyclerView!!.adapter as PlanRecyclerViewAdapter).setPlans(it)
+            })
+            model.selectedPlan.observe(viewLifecycleOwner, Observer {
+               if ( it != -1)  (activity as MainActivityTabbed).viewPager?.currentItem = 1
             })
 
         }

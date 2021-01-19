@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.viewModels
@@ -22,10 +21,10 @@ import com.opgaver.recordingplanner.planlist.PlanItem
 import com.opgaver.recordingplanner.ui.main_tapped.SectionsPagerAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 
 class MainActivityTabbed : FragmentActivity(), LifecycleOwner {
+    var sectionsPagerAdapter : SectionsPagerAdapter? = null
     val model: ViewModelPlanList by viewModels()
     lateinit var database : PlannerDatabase
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -38,13 +37,11 @@ class MainActivityTabbed : FragmentActivity(), LifecycleOwner {
         prepopulateDatabase()
 
         setContentView(R.layout.activity_main_tabbed)
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, this)
+        sectionsPagerAdapter = SectionsPagerAdapter(this, this)
         viewPager= findViewById(R.id.view_pager2)
         viewPager.setOnTouchListener( { v, event -> true })
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
-
-
 
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             when (position) {
@@ -57,9 +54,9 @@ class MainActivityTabbed : FragmentActivity(), LifecycleOwner {
             }
         }.attach()
 
-
         findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener { view ->
-            model.addPlan(PlanItem("NEW"))
+            println(model.plans.value?.size.toString())
+            model.addPlan(PlanItem("NEW ${model.plans.value?.size}"))
         }
     }
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -72,7 +69,6 @@ class MainActivityTabbed : FragmentActivity(), LifecycleOwner {
                     v.clearFocus()
                     val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
-                    v.clearFocus()
                 }
             }
         }
@@ -80,7 +76,7 @@ class MainActivityTabbed : FragmentActivity(), LifecycleOwner {
     }
     fun prepopulateDatabase(){
         GlobalScope.launch {
-            database.clearAllTables()
+           /* database.clearAllTables()
 
 
             if ( database.planitemDAO().getAll().size < 3) {
@@ -92,7 +88,7 @@ class MainActivityTabbed : FragmentActivity(), LifecycleOwner {
                 itemList.add(PlanItem("TEST_2",nowAsLong+1,nowAsLong+2))
                 itemList.add(PlanItem("TEST_3",nowAsLong+2,nowAsLong+3))
                 database.planitemDAO().insertAll( itemList)
-            }
+            }*/
         }
 
     }

@@ -14,7 +14,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.opgaver.recordingplanner.R
 import com.opgaver.recordingplanner.ViewModelPlanList
 import com.opgaver.recordingplanner.planlist.PlanItem
-import java.util.*
 
 
 /**
@@ -23,9 +22,23 @@ import java.util.*
 class RecordingListFragment : Fragment() {
 
     private var columnCount = 1
-    private var planid = -1
     val model: ViewModelPlanList by activityViewModels() //scoped til fragments ejer activity
     var recyclerView: RecyclerView? = null
+    val planObserver: Observer<List<PlanItem>> = Observer {
+
+        if (model.selectedPlan.value != -1) {
+            var newList: MutableList<PlanItem> = ArrayList()
+            for (element in it) {
+                if (element.pid == model.selectedPlan.value) {
+                    newList.add(element)
+                }
+            }
+            (recyclerView!!.adapter as RecordingRecyclerViewAdapter).setRecordings(newList)
+        } else {
+            (recyclerView!!.adapter as RecordingRecyclerViewAdapter).setRecordings(it)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,21 +63,13 @@ class RecordingListFragment : Fragment() {
                 adapter = RecordingRecyclerViewAdapter()
             }
             recyclerView = view
-            model.plans.observe(viewLifecycleOwner, Observer {
-
-                if (planid > -1) {
-                    var selecteditems = ArrayList<PlanItem>()
-                    for (plan in it) {
-                        if (plan.pid == planid) {
-                            selecteditems.add(plan)
-                        }
-                    }
-                    (recyclerView!!.adapter as RecordingRecyclerViewAdapter).setRecordings(
-                        selecteditems
-                    )
-                } else {
-                    (recyclerView!!.adapter as RecordingRecyclerViewAdapter).setRecordings(it)
-                }
+            model.plans.observe(viewLifecycleOwner, planObserver)
+            model.selectedPlan.observe(viewLifecycleOwner, Observer { // selectedPlan ændres
+                model.plans.removeObservers(viewLifecycleOwner)
+                model.plans.observe(
+                    viewLifecycleOwner,
+                    planObserver
+                ) //trigger indlæs Recordings liste
             })
         }
 
@@ -74,6 +79,11 @@ class RecordingListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        model.selectedPlan.value = -1
     }
 
     companion object {

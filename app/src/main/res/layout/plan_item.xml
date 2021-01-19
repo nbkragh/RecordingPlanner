@@ -210,6 +210,16 @@
                     android:minHeight="50dip"
                     app:iconPadding="0dp" />
 
+                <Button
+                    android:id="@+id/goto_recordings_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/config_notifyDelete_switch"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/config_notifyDelete_switch"
+                    android:text="View Recordings"
+                    android:textSize="12sp" />
+
 
             </RelativeLayout>
 
@@ -221,6 +231,7 @@
                 android:layout_below="@id/item_configs_frame"
                 android:layout_gravity="bottom"
                 android:backgroundTint="@color/primaryColor"
+                android:forceHasOverlappingRendering="false"
                 android:foreground="@drawable/baseline_expand_more_white_18dp"
                 android:foregroundGravity="center_vertical|center_horizontal"
                 android:foregroundTint="@color/secondaryColor"

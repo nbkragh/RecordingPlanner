@@ -24,13 +24,22 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/item_number"
+                android:id="@+id/plan_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="@dimen/text_margin"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="@dimen/text_margin"
+                android:layout_marginEnd="@dimen/text_margin"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:text="@{item.title}" />
+
+            <TextView
+                android:id="@+id/start_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/plan_name"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="@dimen/text_margin"
                 android:layout_marginEnd="@dimen/text_margin"
                 android:layout_marginBottom="@dimen/text_margin"
                 android:lines="1"
@@ -38,17 +47,16 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/content"
+                android:id="@+id/end_date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@id/plan_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginStart="@dimen/text_margin"
-                android:layout_marginTop="@dimen/text_margin"
                 android:layout_marginEnd="@dimen/text_margin"
                 android:layout_marginBottom="@dimen/text_margin"
-                android:layout_toEndOf="@id/item_number"
+                android:layout_toEndOf="@id/start_date_text"
                 android:lines="1"
                 android:textAlignment="viewEnd"
                 android:textAppearance="?attr/textAppearanceListItem"
@@ -60,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:foreground="@android:drawable/ic_media_play"
                 android:foregroundGravity="center_vertical|center_horizontal"
